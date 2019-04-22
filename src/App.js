@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route,Switch } from "react-router-dom";
-import Index from '@/views/index/index.js'
-import Home from '@/views/home/index.js'
+import Index from '@/views/index/index.tsx'
+import Home from '@/views/home/index.tsx'
 class App extends Component {
   render() {
     return (
