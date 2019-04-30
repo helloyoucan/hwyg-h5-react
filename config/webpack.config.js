@@ -77,7 +77,8 @@ module.exports = function(webpackEnv) {
         ),
       },
       {
-        loader: require.resolve('css-loader'),
+        // loader: require.resolve('css-loader'),//----
+        loader: cssOptions.modules?require.resolve('typings-for-css-modules-loader'):require.resolve('css-loader'),//++++
         options: cssOptions,
       },
       {
@@ -265,7 +266,8 @@ module.exports = function(webpackEnv) {
         // Support React Native Web
         // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
         'react-native': 'react-native-web',
-        '@':path.resolve(__dirname,'../src')
+        '@':path.resolve(__dirname,'../src'),
+        '@base':path.join(__dirname,'../','components/base')
       },
       plugins: [
         // Adds support for installing with Plug'n'Play, leading to faster installs and adding
@@ -411,6 +413,8 @@ module.exports = function(webpackEnv) {
                 sourceMap: isEnvProduction && shouldUseSourceMap,
                 modules: true,
                 getLocalIdent: getCSSModuleLocalIdent,
+                namedExport:true,//类名导出 //++++
+                camelCase:true//支持驼峰 //++++
               }),
             },
             // Opt-in support for SASS (using .scss or .sass extensions).
@@ -442,6 +446,9 @@ module.exports = function(webpackEnv) {
                   sourceMap: isEnvProduction && shouldUseSourceMap,
                   modules: true,
                   getLocalIdent: getCSSModuleLocalIdent,
+                  namedExport:true,//类名导出 //++++
+                  camelCase:true,//支持驼峰 //++++
+                  sass:true//是否使用sass //++++
                 },
                 'sass-loader'
               ),

@@ -1,0 +1,7 @@
+{
+    "baseUrl":"./src",
+    "paths":{
+        "@base/*":["components/*"]
+    },
+    "files": [ "**/" ]
+}
