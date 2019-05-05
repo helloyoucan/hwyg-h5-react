@@ -4,5 +4,6 @@
         "@/*":["components/*"],
         "@base/*":["components/base/*"]
     },
-    "files": []
+    "exclude": ["node_modules", "dist"],
+    "include": ["src"]
 }
