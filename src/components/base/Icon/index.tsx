@@ -2,12 +2,12 @@ import React from 'react'
 import styles from './index.module.scss'
 interface Props{
     className?:String,
-    onClick?:(event)=>void,
+    onClick?:(event:any)=>void,
     icon?:String
 }
-export default class Icon extends React.Component<any,{}>{
+export default class Icon extends React.Component<Props,any>{
     render(){
-        const icon:Props = this.props.icon
+        const icon:any = this.props.icon
         let {className,onClick}:Props = this.props
         const classNameList:[String] = [styles.icon]
         className&&classNameList.push(className)
