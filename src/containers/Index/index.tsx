@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import styles from './styles.module.scss'
-import Icon from '@/components/base/Icon/index'
-// import Icon from '../../components/base/Icon/index'
+import Icon from '@base/Icon/index'
 export default class Index extends React.Component{
     render() {
         return (
