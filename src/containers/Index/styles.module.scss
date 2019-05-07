@@ -1,3 +1,13 @@
+@keyframes rotate{
+    0% {
+        transform:translate3d(-50%,-50%,0) rotate(0deg);
+    }
+
+    100% {
+        transform:translate3d(-50%,-50%,0) rotate(360deg);
+    }
+}
+
 .index{
     position: fixed;
     height: 100vh;
@@ -5,8 +15,14 @@
     background-color: #fff;
 }
 .loading{
+    animation: rotate 1s infinite;
     position: absolute;
     top: 50%;
-    left: 50;
-    transform:translate3d(0,-50%,0);
+    left: 50%;
+    transform:translate3d(-50%,-50%,0);
+    width: 10vw;
+    height: 10vw;
+    border: 1vw solid #cb191d;
+    border-right-color: transparent;
+    border-radius: 10vw;
 }
