@@ -6,9 +6,8 @@ import {Redirect} from 'react-router-dom'
 export default class Index extends React.Component{
     render() {
         return (
-            <div className={styles.index}>
-            <span className={styles.loading}></span>
-                <Redirect to="/main" />
+            <div>
+            here is home
             </div>
         )
     }
