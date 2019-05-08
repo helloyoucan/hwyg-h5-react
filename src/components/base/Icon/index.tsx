@@ -12,7 +12,7 @@ export default class Icon extends React.Component<Props,any>{
         const classNameList:[String] = [styles.icon]
         className&&classNameList.push(className)
         return (
-            <svg className={[styles.icon,className].join(' ')} onClick={onClick} aria-hidden="true">
+            <svg className={classNameList.join(' ')} onClick={onClick} aria-hidden="true">
                 <use xlinkHref={`#${icon}`}></use>
             </svg>
         )

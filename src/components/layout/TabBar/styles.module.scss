@@ -1,6 +1,10 @@
 .tabBar{
-    display: flex;
+    display: grid;
+    grid-template-columns:20% 20% 20% 20% 20%; 
 }
 .navItem{
-
+ text-align: center;
+ :global(.icon){
+     color: #000;
+ }
 }
