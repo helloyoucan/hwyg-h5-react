@@ -1,12 +1,56 @@
-
-.tabBar{
-    display: grid;
-    grid-template-columns:20% 20% 20% 20% 20%;
-    height: 20vw;
+@function px2vw($pxNum) {
+  @return ($pxNum/750px) * 100vw;
 }
-.navItem{
- text-align: center;
- :global(.icon){
-     color: #000;
- }
+@function px2vh($pxNum) {
+  @return ($pxNum/750px) * 100vh;
+}
+.tabBar {
+  position: relative;
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20% 20%;
+  height: px2vw(100px);
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 1px;
+    background-color: #eee;
+  }
+}
+.navItem {
+  text-align: center;
+  color: #666;
+  font-size: px2vw(20px);
+  &:link,
+  &:visited {
+    color: #666;
+    &.active {
+      color: #ee3f3f;
+      :global {
+        .icon {
+          &:first-child {
+            display: none;
+          }
+          &:nth-child(2) {
+            display: inline-block;
+          }
+        }
+      }
+    }
+  }
+  :global {
+    .icon {
+      margin-top: px2vw(8px);
+      width: px2vw(50px);
+      height: px2vw(50px);
+      &:first-child {
+        display: inline-block;
+      }
+      &:nth-child(2) {
+        display: none;
+      }
+    }
+  }
 }

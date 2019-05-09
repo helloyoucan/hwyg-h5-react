@@ -1,13 +1,19 @@
-.appMain{
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
+@function px2vw($pxNum) {
+  @return ($pxNum/750px) * 100vw;
 }
-.containber{
-    height: calc(100vh - 20vw);
+@function px2vh($pxNum) {
+  @return ($pxNum/750px) * 100vh;
+}
+.appMain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+.containber {
+  height: calc(100vh - #{px2vw(100px)});
 }
