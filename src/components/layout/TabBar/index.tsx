@@ -18,7 +18,7 @@ export default class TabBar extends Component{
                     return (
                         <NavLink to={item.path} className={styles.navItem} key={item.text}>  
                             <Icon className="icon" icon={item.icon}/>
-                            <Icon icon={item.activeIcon}/>
+                            <Icon className="icon" icon={item.activeIcon}/>
                             <p>{item.text}</p>
                         </NavLink>
                     )
