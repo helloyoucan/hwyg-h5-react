@@ -3,7 +3,8 @@
     "baseUrl": "./src",
     "paths": {
       "@/*": ["./*"],
-      "@base/*":["./components/base/*"]
+      "@base/*":["./components/base/*"],
+      "@filters/*":["./utils/filters/*"]
     },
     "target": "es5",
     "lib": [

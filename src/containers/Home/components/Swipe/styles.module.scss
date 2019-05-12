@@ -4,6 +4,12 @@
 @function px2vh($pxNum) {
   @return ($pxNum/750px) * 100vh;
 }
-.home {
-  padding-top: px2vw(90px);
+.swipe {
+  height: px2vw(330px);
+  width: 100%;
+  overflow: hidden;
+}
+.swipeContainer {
+  height: 100%;
+  display: flex;
 }

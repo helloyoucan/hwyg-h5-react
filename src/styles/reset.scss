@@ -7,7 +7,7 @@ li{list-style:none;} /* 去掉默认添加的项目符号 */
 table{border-collapse:collapse;border-spacing:0;} /* 去掉表格的内边框线和单元格间隔 */
 body{font-family:"微软雅黑","宋体","新宋体";font-size:12px;color:#000;line-height: 1;} /* 设置文本字体 */
 a:link, a:visited{text-decoration:none;color: #000000;} /* 设置链接字体 */
-a:hover{color:red}
+a:hover{color:none;}
 a:hover{text-decoration:none;}
 a{outline:none;-webkit-tap-highlight-color: rgba(0,0,0,0);}/*去除移动端a标签点击样式*/
 input,button{outline: none}

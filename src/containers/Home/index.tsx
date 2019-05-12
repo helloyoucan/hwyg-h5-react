@@ -2,14 +2,28 @@ import React from 'react';
 // import { Link } from "react-router-dom";
 import styles from './styles.module.scss'
 // import Icon from '@base/Icon/index'
-import {Redirect} from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import Header from './components/Header/index'
-export default class Home extends React.Component{
+import Swipe from './components/Swipe/index'
+import SwipeItem from './components/SwipeItem/index'
+import TradeNews from './components/TradeNews/index'
+export default class Home extends React.Component {
     render() {
         return (
-            <div>
-                <Header></Header>
-            here is home
+            <div className={styles.home}>
+                <Header />
+                <Swipe>
+                    <SwipeItem>
+                        <div style={{ backgroundColor: '#eee', height: '100%' }}>1</div>
+                    </SwipeItem>
+                    <SwipeItem>
+                        <div style={{ backgroundColor: '#ddd', height: '100%' }}>2</div>
+                    </SwipeItem>
+                    <SwipeItem>
+                        <div style={{ backgroundColor: '#000', height: '100%' }}>3</div>
+                    </SwipeItem>
+                </Swipe>
+                <TradeNews />
             </div>
         )
     }
