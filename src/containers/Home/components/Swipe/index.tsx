@@ -12,8 +12,8 @@ export default class Swipe extends Component {
         swipeContainerStyles: {},
         timeId: undefined
     }
-    constructor() {
-        super({})
+    constructor(props:any) {
+        super(props)
         this.stratChangeSwipeItem = this.stratChangeSwipeItem.bind(this)
     }
     stratChangeSwipeItem() {
