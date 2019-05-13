@@ -7,6 +7,8 @@ import Header from './components/Header/index'
 import Swipe from './components/Swipe/index'
 import SwipeItem from './components/SwipeItem/index'
 import TradeNews from './components/TradeNews/index'
+import Supply from './components/Supply/index'
+import Purchase from './components/Purchase/index'
 export default class Home extends React.Component {
     render() {
         return (
@@ -24,6 +26,8 @@ export default class Home extends React.Component {
                     </SwipeItem>
                 </Swipe>
                 <TradeNews />
+                <Supply/>
+                <Purchase/>
             </div>
         )
     }

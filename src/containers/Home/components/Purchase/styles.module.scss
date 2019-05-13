@@ -1,0 +1,36 @@
+@function px2vw($pxNum) {
+  @return ($pxNum/750px) * 100vw;
+}
+@function px2vh($pxNum) {
+  @return ($pxNum/750px) * 100vh;
+}
+.listTitle {
+  padding: px2vw(40px) 0  px2vw(10px);
+  font-weight: normal;
+  background-color: #fff;
+  span {
+    display: inline-block;
+    height: px2vw(60px);
+    line-height: px2vw(60px);
+    background: linear-gradient(90deg, #f5863c, #f68f4a);
+    color: #fff;
+    font-size: px2vw(26px);
+    border-top-right-radius: px2vw(30px);
+    border-bottom-right-radius: px2vw(30px);
+    padding: 0 px2vw(40px) 0 px2vw(30px);
+  }
+  a {
+    float: right;
+    line-height: px2vw(60px);
+    padding-right: px2vw(30px);
+    color: #999;
+    font-size: px2vw(26px);
+    &:link,
+    &:visited {
+      color: #999;
+    }
+    .icon {
+      margin-left: px2vw(10px);
+    }
+  }
+}

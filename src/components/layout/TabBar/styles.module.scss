@@ -9,6 +9,7 @@
   display: grid;
   grid-template-columns: 20% 20% 20% 20% 20%;
   height: px2vw(100px);
+  background: #fff;
   &::before {
     content: "";
     position: absolute;

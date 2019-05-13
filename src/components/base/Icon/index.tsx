@@ -1,11 +1,11 @@
-import React from 'react'
+import React,{Component} from 'react'
 import styles from './index.module.scss'
 interface Props{
     className?:String,
     onClick?:(event:any)=>void,
     icon?:String
 }
-export default class Icon extends React.Component<Props,any>{
+export default class Icon extends Component<Props,any>{
     render(){
         const icon:any = this.props.icon
         let {className,onClick}:Props = this.props

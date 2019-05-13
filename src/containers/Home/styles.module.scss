@@ -6,4 +6,8 @@
 }
 .home {
   padding-top: px2vw(90px);
+  height: calc(100% - #{px2vw(90px + 60px)});
+  overflow: auto;
+  background-color: #f2f2f2;
+  padding-bottom: px2vw(60px);
 }

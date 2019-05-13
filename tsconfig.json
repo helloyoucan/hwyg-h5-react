@@ -4,6 +4,7 @@
     "paths": {
       "@/*": ["./*"],
       "@base/*":["./components/base/*"],
+      "@servise/*":["./components/servise/*"],
       "@filters/*":["./utils/filters/*"]
     },
     "target": "es5",

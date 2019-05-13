@@ -10,25 +10,47 @@ export default class Swipe extends Component {
     state = {
         childrenNodeList: [],
         swipeContainerStyles: {},
-        timeId: undefined
+        timeId: undefined,
+        activeIndex: 0
     }
-    constructor(props:any) {
+    constructor(props: any) {
         super(props)
         this.stratChangeSwipeItem = this.stratChangeSwipeItem.bind(this)
+        this.handleTouchStart = this.handleTouchStart.bind(this)
+        this.handleTouchMove = this.handleTouchMove.bind(this)
+        this.handleTouchEnd = this.handleTouchEnd.bind(this)
     }
+    //启动卡片切换
     stratChangeSwipeItem() {
-        const timeId = setInterval(() => {
-            const swipeContainerStyles = { transform: `translate3d(-${(1 / this.state.childrenNodeList.length) * 100}%,0,0)`, transition: 'transform 1s' }
-            this.setState({ swipeContainerStyles }, () => {
-                const childrenNodeList: Array<any> = this.state.childrenNodeList
-                setTimeout(() => {
-                    const swipeContainerStyles = { transform: 'translate3d(0,0,0)', transition: 'none' }
-                    childrenNodeList.push(childrenNodeList.shift())
-                    this.setState({ swipeContainerStyles, childrenNodeList })
-                }, 1000)
-            })
-        }, 5000)
-        this.setState({ timeId })
+        const length = this.state.childrenNodeList.length
+        if (length > 1) {
+            const timeId = setInterval(() => {
+                const swipeContainerStyles = { transform: `translate3d(-${(1 / length) * 100}%,0,0)`, transition: 'transform 1s' }
+                const activeIndex = (this.state.activeIndex + 1) % length //更新索引
+                this.setState({ swipeContainerStyles, activeIndex }, () => {
+                    const childrenNodeList: Array<any> = this.state.childrenNodeList
+                    setTimeout(() => {
+                        const swipeContainerStyles = { transform: 'translate3d(0,0,0)', transition: 'none' }
+                        childrenNodeList.push(childrenNodeList.shift())
+                        this.setState({ swipeContainerStyles, childrenNodeList })
+                    }, 1000)
+                })
+
+            }, 5000)
+            this.setState({ timeId })
+        }
+    }
+    handleTouchStart(e: any) {
+        console.log(e)
+
+    }
+    handleTouchMove(e: React.TouchEvent) {
+        // console.log(e)
+
+    }
+    handleTouchEnd(e: React.TouchEvent) {
+        // console.log(e)
+
     }
     componentDidMount() {
         this.setState({
@@ -49,13 +71,22 @@ export default class Swipe extends Component {
         this.state.timeId && clearInterval(this.state.timeId)
     }
     render() {
-        let { childrenNodeList, swipeContainerStyles } = this.state
+        let { childrenNodeList, swipeContainerStyles, activeIndex } = this.state
         return (
-            <div className={styles.swipe}>
+            <div className={styles.swipe}
+                onTouchStart={this.handleTouchStart}
+                onTouchMove={this.handleTouchMove}
+                onTouchEnd={this.handleTouchEnd}
+            >
                 <div className={styles.swipeContainer}
-                    style={{ width: `${childrenNodeList.length * 100}%`,...swipeContainerStyles}}>
-                    {renderChildren(childrenNodeList)}
+                    style={{ width: `${childrenNodeList.length * 100}%`, ...swipeContainerStyles }}>
+                    {childrenNodeList}
                 </div>
+                <ul className={styles.dotsList}>
+                    {childrenNodeList.map((_, index) => {
+                        return (<li key={index} className={index === activeIndex ? styles.active : undefined}></li>)
+                    })}
+                </ul>
             </div>
         )
     }

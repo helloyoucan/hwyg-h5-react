@@ -8,8 +8,32 @@
   height: px2vw(330px);
   width: 100%;
   overflow: hidden;
+  background: #fff;
+  position: relative;
 }
 .swipeContainer {
   height: 100%;
   display: flex;
+}
+.dotsList {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: px2vw(16px);
+  display: flex;
+  li {
+    background-color: transparent;
+    width: px2vw(16px);
+    height: px2vw(16px);
+    border: 1px solid rgba(#dfdfdf, 0.6);
+    border-radius: 50%;
+    & + li {
+      margin-left: px2vw(16px);
+    }
+  }
+  .active {
+    background-color: #ee3f3f;
+    border-color: #ee3f3f;
+  }
 }
