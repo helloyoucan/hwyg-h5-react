@@ -21,9 +21,9 @@ export default class Home extends React.Component {
                     <SwipeItem>
                         <div style={{ backgroundColor: '#ddd', height: '100%' }}>2</div>
                     </SwipeItem>
-                    <SwipeItem>
+                    {/* <SwipeItem>
                         <div style={{ backgroundColor: '#000', height: '100%' }}>3</div>
-                    </SwipeItem>
+                    </SwipeItem> */}
                 </Swipe>
                 <TradeNews />
                 <Supply/>

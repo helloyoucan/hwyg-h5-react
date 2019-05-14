@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styles from './styles.module.scss'
+import { instanceOf } from 'prop-types';
 import { number } from 'prop-types';
 function renderChildren(children: React.ReactNode | [] | any) {//遍历所有子组件
     return React.Children.map(children, child => {
@@ -8,8 +9,7 @@ function renderChildren(children: React.ReactNode | [] | any) {//遍历所有子
     })
 }
 interface TargetTouche{
-    pageX:number,
-    pageY:number
+    pageX:number
 }
 interface swipe{
     clientWidth:number
@@ -20,7 +20,8 @@ interface State{
     timeId:any,
     activeIndex:number,
     targetTouche:TargetTouche,
-    $swipe:null|React.ReactNode|swipe
+    $swipe:null|React.ReactNode|swipe,
+    canMove:Boolean
 }
 export default class Swipe extends Component {
     state:State = {
@@ -29,118 +30,162 @@ export default class Swipe extends Component {
         timeId: undefined,
         activeIndex: 0,
         targetTouche:{
-            pageX:0,
-            pageY:0
+            pageX:0
         },
-        $swipe:null
+        $swipe:null,
+        canMove:true
     }
     constructor(props:any) {
         super(props)
-        this.stratChangeSwipeItem = this.stratChangeSwipeItem.bind(this)
         this.handleTouchStart = this.handleTouchStart.bind(this)
         this.handleTouchMove = this.handleTouchMove.bind(this)
         this.handleTouchEnd = this.handleTouchEnd.bind(this)
     }
-    changeSwipeItem(){
+    //向右切换
+    swipeToRight(){
         const length = this.state.childrenNodeList.length
-        const swipeContainerStyles = { transform: `translate3d(${(-1 / length) * 100}%,0,0)`, transition: 'transform 1s' }
+        const swipeContainerStyles = { transform: `translate3d(${(-2 / length) * 100}%,0,0)`, transition: 'transform 1s' }
         const activeIndex = (this.state.activeIndex + 1) % length //更新索引
-        this.setState({ swipeContainerStyles, activeIndex }, () => {
+        this.setState({ swipeContainerStyles, activeIndex,canMove:false }, () => {
             const childrenNodeList: Array<any> = this.state.childrenNodeList
             setTimeout(() => {
-                const swipeContainerStyles = { transform: 'translate3d(0,0,0)', transition: 'none' }
+                const swipeContainerStyles = { transform: `translate3d(${(-1 / length) * 100}%,0,0)`, transition: 'none' }
                 childrenNodeList.push(childrenNodeList.shift())
-                this.setState({ swipeContainerStyles, childrenNodeList })
+                this.setState({ swipeContainerStyles, childrenNodeList,canMove:true })
+            }, 1000)
+        })
+    }
+    //向左切换
+    swipeToLeft(){
+        const length = this.state.childrenNodeList.length
+        const swipeContainerStyles = { transform: `translate3d(0,0,0)`, transition: 'transform 1s' }
+        const activeIndex = (this.state.activeIndex + 1) % length //更新索引
+        this.setState({ swipeContainerStyles, activeIndex,canMove:false }, () => {
+            const childrenNodeList: Array<any> = this.state.childrenNodeList
+            setTimeout(() => {
+                const swipeContainerStyles = { transform: `translate3d(${(-1 / length) * 100}%,0,0)`, transition: 'none' }
+                childrenNodeList.unshift(childrenNodeList.pop())
+                this.setState({ swipeContainerStyles, childrenNodeList,canMove:true })
             }, 1000)
         })
     }
     //启动卡片切换
     stratChangeSwipeItem() {
         if (this.state.childrenNodeList.length > 1) {
+            this.state.timeId && clearInterval(this.state.timeId)
             const timeId = setInterval(() => {
-                this.changeSwipeItem()
+                this.swipeToRight()
             }, 5000)
             this.setState({ timeId })
         }
     }
+
     handleTouchStart(e:React.TouchEvent) {
+        if(!this.state.canMove) return
         e.persist()
         this.setState({
             targetTouche:{
-                pageX:e.targetTouches[0].pageX,
-                pageY:e.targetTouches[0].pageY
+                pageX:e.targetTouches[0].pageX
             }
         })
-        console.log(e)
         this.state.timeId && clearInterval(this.state.timeId)
     }
        
     handleTouchMove(e: React.TouchEvent) {
+        if(!this.state.canMove) return
         e.persist()
-        // const clientWidth = (this.state.$swipe as swipe).clientWidth
-        const {pageX,pageY} = this.state.targetTouche
+        const {pageX} = this.state.targetTouche
         const movePageX = e.targetTouches[0].pageX
-        const movePageY = e.targetTouches[0].pageY
-        console.log(this.state.targetTouche.pageX,movePageX)
-        const swipeContainerStyles = { transform: `translate3d(${movePageX-pageX}px,0,0)`, transition: 'none' }
-        console.log(swipeContainerStyles)
+        const length = this.state.childrenNodeList.length
+        const swipeContainerStyles = { transform: `translate3d(calc(${movePageX-pageX}px + ${(-1 / length) * 100}%),0,0)`, transition: 'none' }
         this.setState({
             swipeContainerStyles
         })
     }
     handleTouchEnd(e: React.TouchEvent) {
+        if(!this.state.canMove) return
         e.persist()
-        console.log(e)
+        console.log()
         const clientWidth = (this.state.$swipe as swipe).clientWidth
-        const {pageX,pageY} = this.state.targetTouche
+        const {pageX} = this.state.targetTouche
         const endPageX = e.changedTouches[0].pageX
-        const endPageY = e.changedTouches[0].pageY
-        if(Math.abs(pageX-endPageX)>clientWidth/2){//滑动超过一半
-            this.changeSwipeItem()
-        }else{
-            const swipeContainerStyles = { transform: 'translate3d(0,0,0)', transition: 'transform 1s' }
+        if(Math.abs(pageX-endPageX)>clientWidth/3){//滑动超过1/3
+            if(endPageX-pageX>0){//从左往右
+                this.swipeToLeft()
+            }else{//从右往左
+                this.swipeToRight()
+            }
+        }else{//回复原位置
+            const length = this.state.childrenNodeList.length
+            const swipeContainerStyles = { transform: `translate3d(${(-1 / length) * 100}%,0,0)`, transition: 'transform 1s' }
             this.setState({ swipeContainerStyles })
         }
 
         this.stratChangeSwipeItem()
 
     }
+    // 初始化子组件
+    initChildren(){
+        if(this.props.children instanceof Array){//子组件只有一个时
+            this.state.timeId && clearInterval(this.state.timeId)
+            const children = React.Children.toArray(this.props.children)
+            if(children.length>2){//子组件大于2
+                children.unshift(children.pop()) 
+            }else{
+                // const otherChildren = React.cloneElement(children[children.length-1])
+                // console.log(otherChildren)
+                // children.unshift(React.createElement(
+                //     otherChildren.type
+                //   ))
+            }
+            const swipeContainerStyles = { transform: `translate3d(${(-1 / children.length) * 100}%,0,0)`, transition: 'transform 1s' }
+            this.setState({
+                swipeContainerStyles,
+                childrenNodeList: renderChildren(children)
+            }, () => {
+                this.stratChangeSwipeItem()
+            })
+        }else{
+            this.setState({
+                childrenNodeList: renderChildren(React.Children.toArray(this.props.children))
+            })
+        }
+    }
     componentDidMount() {
-        this.setState({
-            childrenNodeList: renderChildren(this.props.children)
-        }, () => {
-            this.stratChangeSwipeItem()
-        })
+        this.initChildren()
     }
     componentWillReceiveProps() {
-        this.state.timeId && clearInterval(this.state.timeId)
-        this.setState({
-            childrenNodeList: renderChildren(this.props.children)
-        }, () => {
-            this.stratChangeSwipeItem()
-        })
+        this.initChildren()
     }
     componentWillUnmount() {
         this.state.timeId && clearInterval(this.state.timeId)
     }
     render() {
         let { childrenNodeList, swipeContainerStyles, activeIndex } = this.state
+        const isBindEvent = childrenNodeList.length>1
+        console.log(isBindEvent)
+        const {children} = this.props
         return (
             <div className={styles.swipe}
                 ref={(el)=>(this.state.$swipe = el)}
-                onTouchStart={this.handleTouchStart}
-                onTouchMove={this.handleTouchMove}
-                onTouchEnd={this.handleTouchEnd}
+                onTouchStart={(e)=>{isBindEvent&&this.handleTouchStart(e)}}
+                onTouchMove={(e)=>{isBindEvent&&this.handleTouchMove(e)}}
+                onTouchEnd={(e)=>{isBindEvent&&this.handleTouchEnd(e)}}
             >
                 <div className={styles.swipeContainer}
                     style={{ width: `${childrenNodeList.length * 100}%`, ...swipeContainerStyles }}>
                     {childrenNodeList}
                 </div>
-                <ul className={styles.dotsList}>
-                    {childrenNodeList.map((_, index) => {
-                        return (<li key={index} className={index === activeIndex ? styles.active : undefined}></li>)
-                    })}
-                </ul>
+                {
+                    (children instanceof Array)&&children.length>1?(
+                        <ul className={styles.dotsList}>
+                        {children.map((_, index) => {
+                            return (<li key={index} className={index === activeIndex ? styles.active : undefined}></li>)
+                        })}
+                    </ul>
+                    ):''
+                }
+               
             </div>
         )
     }
