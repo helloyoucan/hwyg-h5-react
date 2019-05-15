@@ -5,7 +5,7 @@ export default class GoodsCard extends Component {
     render() {
         return (
             <div className={styles.goodsCard}>
-                <img className={styles.goodsImg} />
+                <img className={styles.goodsImg} src="" alt="商品图片"/>
                 <div className={styles.goodsInfo}>
                     <h4 className={['gb-long-text-ellipsis',styles.name].join(' ')}>深带鱼&nbsp;10吨</h4>
                     <p className={styles.infoItem}>规格：100-200</p>

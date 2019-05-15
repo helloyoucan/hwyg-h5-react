@@ -13,7 +13,7 @@ export default class Supply extends Component {
                 <h2 className={styles.title}>为你推荐</h2>
                 <h3 className={styles.listTitle}>
                     <span>最新货源</span>
-                    <a href="#">查看更多<Icon className={styles.icon} icon="nav_icon_go"/></a>
+                    <a href="/">查看更多<Icon className={styles.icon} icon="nav_icon_go"/></a>
                 </h3>
                 <ul>
                     {

@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import styles from './styles.module.scss'
-import { instanceOf } from 'prop-types';
-import { number } from 'prop-types';
 function renderChildren(children: React.ReactNode | [] | any) {//遍历所有子组件
     return React.Children.map(children, child => {
         //克隆每一个对象
@@ -24,6 +22,7 @@ interface State{
     canMove:Boolean
 }
 export default class Swipe extends Component {
+    el=React.createRef()
     state:State = {
         childrenNodeList: [],
         swipeContainerStyles: {},
@@ -40,6 +39,7 @@ export default class Swipe extends Component {
         this.handleTouchStart = this.handleTouchStart.bind(this)
         this.handleTouchMove = this.handleTouchMove.bind(this)
         this.handleTouchEnd = this.handleTouchEnd.bind(this)
+        this.el=React.createRef()
     }
     //向右切换
     swipeToRight(){
@@ -59,7 +59,7 @@ export default class Swipe extends Component {
     swipeToLeft(){
         const length = this.state.childrenNodeList.length
         const swipeContainerStyles = { transform: `translate3d(0,0,0)`, transition: 'transform 1s' }
-        const activeIndex = (this.state.activeIndex + 1) % length //更新索引
+        const activeIndex = (this.state.activeIndex - 1 + length) % length //更新索引
         this.setState({ swipeContainerStyles, activeIndex,canMove:false }, () => {
             const childrenNodeList: Array<any> = this.state.childrenNodeList
             setTimeout(() => {
@@ -105,7 +105,6 @@ export default class Swipe extends Component {
     handleTouchEnd(e: React.TouchEvent) {
         if(!this.state.canMove) return
         e.persist()
-        console.log()
         const clientWidth = (this.state.$swipe as swipe).clientWidth
         const {pageX} = this.state.targetTouche
         const endPageX = e.changedTouches[0].pageX
@@ -126,26 +125,21 @@ export default class Swipe extends Component {
     }
     // 初始化子组件
     initChildren(){
-        if(this.props.children instanceof Array){//子组件只有一个时
+        if(this.props.children instanceof Array){//子组件1个以上
             this.state.timeId && clearInterval(this.state.timeId)
             const children = React.Children.toArray(this.props.children)
+            let swipeContainerStyles = {}
             if(children.length>2){//子组件大于2
                 children.unshift(children.pop()) 
-            }else{
-                // const otherChildren = React.cloneElement(children[children.length-1])
-                // console.log(otherChildren)
-                // children.unshift(React.createElement(
-                //     otherChildren.type
-                //   ))
+                swipeContainerStyles = { transform: `translate3d(${(-1 / children.length) * 100}%,0,0)`, transition: 'none' }
             }
-            const swipeContainerStyles = { transform: `translate3d(${(-1 / children.length) * 100}%,0,0)`, transition: 'transform 1s' }
             this.setState({
                 swipeContainerStyles,
                 childrenNodeList: renderChildren(children)
             }, () => {
                 this.stratChangeSwipeItem()
             })
-        }else{
+        }else{//子组件只有一个时
             this.setState({
                 childrenNodeList: renderChildren(React.Children.toArray(this.props.children))
             })
@@ -163,11 +157,11 @@ export default class Swipe extends Component {
     render() {
         let { childrenNodeList, swipeContainerStyles, activeIndex } = this.state
         const isBindEvent = childrenNodeList.length>1
-        console.log(isBindEvent)
         const {children} = this.props
         return (
             <div className={styles.swipe}
                 ref={(el)=>(this.state.$swipe = el)}
+                // ref={this.el}
                 onTouchStart={(e)=>{isBindEvent&&this.handleTouchStart(e)}}
                 onTouchMove={(e)=>{isBindEvent&&this.handleTouchMove(e)}}
                 onTouchEnd={(e)=>{isBindEvent&&this.handleTouchEnd(e)}}

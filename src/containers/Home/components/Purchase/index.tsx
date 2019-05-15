@@ -12,7 +12,7 @@ export default class Purchase extends Component {
             <section>
                 <h3 className={styles.listTitle}>
                     <span>最新求购</span>
-                    <a href="#">查看更多<Icon className={styles.icon} icon="nav_icon_go"/></a>
+                    <a href="/">查看更多<Icon className={styles.icon} icon="nav_icon_go"/></a>
                 </h3>
                 <ul>
                     {
