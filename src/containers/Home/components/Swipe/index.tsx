@@ -44,13 +44,13 @@ export default class Swipe extends Component {
     //向右切换
     swipeToRight(){
         const length = this.state.childrenNodeList.length
-        const swipeContainerStyles = { transform: `translate3d(${(-2 / length) * 100}%,0,0)`, transition: 'transform 1s' }
-        const activeIndex = (this.state.activeIndex + 1) % length //更新索引
+        const swipeContainerStyles = { transform: `translate3d(${(-2 / length) * 100}%,0,0)`, transition: 'transform 1s' }//********
+        const activeIndex = (this.state.activeIndex + 1) % length //更新索引//********
         this.setState({ swipeContainerStyles, activeIndex,canMove:false }, () => {
             const childrenNodeList: Array<any> = this.state.childrenNodeList
             setTimeout(() => {
                 const swipeContainerStyles = { transform: `translate3d(${(-1 / length) * 100}%,0,0)`, transition: 'none' }
-                childrenNodeList.push(childrenNodeList.shift())
+                childrenNodeList.push(childrenNodeList.shift())//********
                 this.setState({ swipeContainerStyles, childrenNodeList,canMove:true })
             }, 1000)
         })
@@ -58,13 +58,13 @@ export default class Swipe extends Component {
     //向左切换
     swipeToLeft(){
         const length = this.state.childrenNodeList.length
-        const swipeContainerStyles = { transform: `translate3d(0,0,0)`, transition: 'transform 1s' }
-        const activeIndex = (this.state.activeIndex - 1 + length) % length //更新索引
+        const swipeContainerStyles = { transform: `translate3d(0,0,0)`, transition: 'transform 1s' }//********
+        const activeIndex = (this.state.activeIndex - 1 + length) % length //更新索引//********
         this.setState({ swipeContainerStyles, activeIndex,canMove:false }, () => {
             const childrenNodeList: Array<any> = this.state.childrenNodeList
             setTimeout(() => {
                 const swipeContainerStyles = { transform: `translate3d(${(-1 / length) * 100}%,0,0)`, transition: 'none' }
-                childrenNodeList.unshift(childrenNodeList.pop())
+                childrenNodeList.unshift(childrenNodeList.pop())//********
                 this.setState({ swipeContainerStyles, childrenNodeList,canMove:true })
             }, 1000)
         })
