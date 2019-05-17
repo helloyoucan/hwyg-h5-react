@@ -28,6 +28,9 @@
     margin: 0 px2vw(12px) 0 px2vw(16px);
     vertical-align: middle;
   }
+  &:link, &:visited{
+    color:rgba(#fff,.5);
+  }
 }
 .messageBtn,
 .addBtn {

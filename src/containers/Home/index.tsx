@@ -4,7 +4,7 @@ import styles from './styles.module.scss'
 // import Icon from '@base/Icon/index'
 // import { Redirect } from 'react-router-dom'
 import Header from './components/Header/index'
-import Swipe from './components/Swipe/index'
+import Swipe from './components/Swipe/index2'
 import SwipeItem from './components/SwipeItem/index'
 import TradeNews from './components/TradeNews/index'
 import Supply from './components/Supply/index'
@@ -22,7 +22,10 @@ export default class Home extends React.Component {
                         <div style={{ backgroundColor: '#ddd', height: '100%' }}>2</div>
                     </SwipeItem>
                     <SwipeItem>
-                        <div style={{ backgroundColor: '#000', height: '100%' }}>3</div>
+                        <div style={{ backgroundColor: '#f0f0f0', height: '100%' }}>3</div>
+                    </SwipeItem>
+                    <SwipeItem>
+                        <div style={{ backgroundColor: '#cdcdcd', height: '100%' }}>4</div>
                     </SwipeItem>
                 </Swipe>
                 <TradeNews />
