@@ -1,0 +1,41 @@
+@function px2vw($pxNum) {
+  @return ($pxNum/750px) * 100vw;
+}
+@function px2vh($pxNum) {
+  @return ($pxNum/750px) * 100vh;
+}
+
+.infiniteScroll {
+  overflow: hidden;
+  position: relative;
+}
+.srcollContent {
+  height: 100%;
+  overflow: auto;
+}
+.top {
+  // height: px2vw(80px);
+  height: 0;
+  max-height: px2vw(80px);
+  width: 100%;
+  text-align: center;
+  line-height: px2vw(80px);
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  background-color: #fff;
+  overflow: hidden;
+}
+.bottom {
+  // height: px2vw(80px);
+  height: 0;
+  max-height: px2vw(80px);
+  width: 100%;
+  text-align: center;
+  line-height: px2vw(80px);
+  position: absolute;
+  bottom: 0;
+  z-index: 2;
+  background-color: #fff;
+  overflow: hidden;
+}

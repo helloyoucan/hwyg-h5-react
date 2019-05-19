@@ -1,0 +1,11 @@
+@function px2vw($pxNum) {
+  @return ($pxNum/750px) * 100vw;
+}
+@function px2vh($pxNum) {
+  @return ($pxNum/750px) * 100vh;
+}
+
+.goodsConatiner{
+  height: calc(100% - #{px2vw(90px)});
+  overflow: auto;
+}

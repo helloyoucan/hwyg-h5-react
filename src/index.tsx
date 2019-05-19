@@ -5,9 +5,10 @@ import * as serviceWorker from './serviceWorker';
 import '@/styles/index.scss'
 // import store from '@/store/index.js';
 // import { Provider } from 'react-redux'
+import Router from '@/router/index'
 ReactDOM.render( 
     // <Provider store={store}>
-        <App />,
+        <App router={Router}/>,
     // </Provider>,
     document.getElementById('root')
 );

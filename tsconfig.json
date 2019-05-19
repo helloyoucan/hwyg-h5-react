@@ -5,7 +5,8 @@
       "@/*": ["./*"],
       "@base/*":["./components/base/*"],
       "@servise/*":["./components/servise/*"],
-      "@filters/*":["./utils/filters/*"]
+      "@filters/*":["./utils/filters/*"],
+      "@loadable/*":["@loadable/*"]
     },
     "target": "es5",
     "lib": [

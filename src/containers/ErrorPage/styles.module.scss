@@ -1,0 +1,13 @@
+@function px2vw($pxNum) {
+  @return ($pxNum/750px) * 100vw;
+}
+@function px2vh($pxNum) {
+  @return ($pxNum/750px) * 100vh;
+}
+.error{
+  line-height: 100vh;
+  font-size: px2vw(50px);
+  font-weight: bolder;
+  color: #cb191d;
+  text-align: center;
+}

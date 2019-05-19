@@ -8,10 +8,7 @@ render(){
     return (
         <main className={styles.appMain}>
             <div className={styles.containber}>
-                <Route path="/main/home" exact component={Home}></Route>
-                <Route path="/main" exact component={Home}></Route>
-                <Route path="/main/a" exact component={Home}></Route>
-                <Route path="/main/b" exact component={Home}></Route>
+            {this.props.children}
             </div>
             <TavBar></TavBar>
         </main>
