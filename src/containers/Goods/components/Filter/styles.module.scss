@@ -1,0 +1,33 @@
+@function px2vw($pxNum) {
+  @return ($pxNum/750px) * 100vw;
+}
+@function px2vh($pxNum) {
+  @return ($pxNum/750px) * 100vh;
+}
+
+.filter {
+  display: grid;
+  grid-template-columns: px2vw(188px) 1fr 1fr px2vw(186px);
+  text-align: center;
+  line-height: px2vw(80px);
+  color: #666;
+  font-size: px2vw(26px);
+  :global {
+    .icon {
+      margin-right: px2vw(10px);
+    }
+  }
+}
+.triangle {
+  &::after {
+    content: "";
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-top: .5em solid #666;
+    border-left: .5em solid transparent;
+    border-right: .5em solid transparent;
+    margin-left:.5em;
+    transform: translateY(-25%);
+  }
+}
