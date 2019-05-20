@@ -18,16 +18,38 @@
     }
   }
 }
+
 .triangle {
   &::after {
     content: "";
     display: inline-block;
     width: 0;
     height: 0;
-    border-top: .5em solid #666;
-    border-left: .5em solid transparent;
-    border-right: .5em solid transparent;
-    margin-left:.5em;
+    border-top: 0.5em solid #666;
+    border-left: 0.5em solid transparent;
+    border-right: 0.5em solid transparent;
+    margin-left: 0.5em;
     transform: translateY(-25%);
+    transition: transform 0.5s;
+  }
+}
+
+.content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  background-color: #fff;
+  height: 0;
+  transition: height 0.5s;
+  overflow: hidden;
+}
+.active {
+  .triangle::after {
+    transform: translateY(-25%) rotate3d(0, 0, 1, -180deg);
+  }
+  .content {
+    overflow: auto;
+    height: 100%;
   }
 }
