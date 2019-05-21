@@ -29,8 +29,6 @@
     border-left: 0.5em solid transparent;
     border-right: 0.5em solid transparent;
     margin-left: 0.5em;
-    transform: translateY(-25%);
-    transition: transform 0.5s;
   }
 }
 
@@ -39,17 +37,49 @@
   left: 0;
   right: 0;
   z-index: 2;
-  background-color: #fff;
+  background-color: transparent;
+  overflow: auto;
   height: 0;
-  transition: height 0.5s;
-  overflow: hidden;
+  transition: height 0.3s;
+  // height: calc(100% - #{px2vw(90px+80px+100px)});
+  ul{
+    height: 0;
+    transition: height 0.3s;
+    overflow: hidden;
+  }
 }
 .active {
+  .label {
+    color: #ee3f3f;
+  }
   .triangle::after {
-    transform: translateY(-25%) rotate3d(0, 0, 1, -180deg);
+    border-top-color: #ee3f3f;
   }
   .content {
-    overflow: auto;
-    height: 100%;
+    height: calc(100% - #{px2vw(90px+80px+100px)});
+  }
+}
+
+.filterList {
+  padding-left: px2vw(30px);
+  li {
+    line-height: px2vw(80px);
+    font-size: px2vw(26px);
+    color: #666;
+    text-align: left;
+    position: relative;
+    background-color: #fff;
+    &.active {
+      color: #ee3f3f;
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background-color: #eee;
+    }
   }
 }
