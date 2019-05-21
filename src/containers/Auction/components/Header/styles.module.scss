@@ -1,0 +1,43 @@
+@function px2vw($pxNum) {
+  @return ($pxNum/750px) * 100vw;
+}
+@function px2vh($pxNum) {
+  @return ($pxNum/750px) * 100vh;
+}
+
+.header {
+  height: px2vw(90px+90px+40px+40px);
+  background: linear-gradient(90deg, #f2693d, #cb191d);
+}
+.title {
+  color: #fff;
+  line-height: px2vw(90px);
+  font-size: px2vw(36px);
+  text-align: center;
+}
+.tabs {
+  display: flex;
+}
+.tabItem {
+  flex-grow: 1;
+  font-size: px2vw(30px);
+  color: #fff;
+  text-align: center;
+  opacity: .6;
+  position: relative;
+  line-height: px2vw(90px);
+  &.active{
+    opacity: 1;
+    &::after{
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: px2vw(2px);
+      transform: translateX(-50%);
+      width: 30%;
+      height: px2vw(4px);
+      background-color: #fff;
+      border-radius: px2vw(2px);
+    }
+  }
+}
