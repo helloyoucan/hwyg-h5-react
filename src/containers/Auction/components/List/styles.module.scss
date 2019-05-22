@@ -1,0 +1,6 @@
+@function px2vw($pxNum) {
+  @return ($pxNum/750px) * 100vw;
+}
+@function px2vh($pxNum) {
+  @return ($pxNum/750px) * 100vh;
+}
