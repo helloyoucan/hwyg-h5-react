@@ -5,7 +5,7 @@ import List from './components/List/index'
 export default class Auction extends Component {
     render() {
         return (
-            <div>
+            <div className={styles.auction}>
                 <Header/>
                 <List/>
             </div>

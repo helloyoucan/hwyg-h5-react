@@ -4,3 +4,10 @@
 @function px2vh($pxNum) {
   @return ($pxNum/750px) * 100vh;
 }
+.list{
+  overflow: auto;
+  height: calc(100% - #{px2vw(260px)});
+  li{
+    margin: px2vw(30px);
+  }
+}

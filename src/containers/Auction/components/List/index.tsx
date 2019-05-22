@@ -7,7 +7,7 @@ export default class List extends Component {
             <div className={styles.list}>
                 <ul>
                     {
-                        new Array(6).fill(1).map((item,index)=>(<AuctionCard key={index}/>))
+                        new Array(6).fill(1).map((item,index)=>(<li key={index}><AuctionCard/></li>))
                     }
                 </ul>
             </div>
