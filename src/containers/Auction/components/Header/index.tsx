@@ -10,22 +10,13 @@ const tabList: Array<TabItem> = [
     { text: '专场预告', type: 2 },
     { text: '历史专场', type: 3 },
 ]
-export default class Header extends Component {
-    state = {
-        activeType: 0
-    }
-    constructor(props: any) {
-        super(props)
-        this.handleClickTabItem = this.handleClickTabItem.bind(this)
-
-    }
-    handleClickTabItem(type: number) {
-        this.setState({
-            activeType: type
-        })
-    }
+interface Props{
+    type:number,
+    updateType:Function
+}
+export default class Header extends Component <Props,any> {
     render() {
-        const { activeType } = this.state
+        const {type,updateType} = this.props
         return (
             <div className={styles.header}>
                 <div className={styles.title}>竞价大厅</div>
@@ -34,8 +25,8 @@ export default class Header extends Component {
                         tabList.map(item => (
                             <div
                                 key={item.type}
-                                onClick={() => { this.handleClickTabItem(item.type) }}
-                                className={[styles.tabItem, activeType === item.type ? styles.active : undefined].join(' ')}>
+                                onClick={() => {updateType(item.type) }}
+                                className={[styles.tabItem, type === item.type ? styles.active : undefined].join(' ')}>
                                 {item.text}
                             </div>
                         ))

@@ -1,0 +1,32 @@
+@function px2vw($pxNum) {
+  @return ($pxNum/750px) * 100vw;
+}
+@function px2vh($pxNum) {
+  @return ($pxNum/750px) * 100vh;
+}
+.timerCount {
+  background: linear-gradient(90deg, #f2693d, #cb191d);
+  font-size: 0;
+  min-width: px2vw(381px);
+  padding: 0 px2vw(30px);
+  text-align: right;
+}
+.timerLabel {
+  color: #fff;
+  margin-right: px2vw(20px);
+  font-size: px2vw(26px);
+  line-height: px2vw(60px);
+  float: left;
+}
+.time {
+  font-size: px2vw(30px);
+  margin-left: px2vw(10px);
+  line-height: px2vw(60px);
+  font-weight: bold;
+  color: #fefefe;
+}
+.timerUnit {
+  font-size: px2vw(26px);
+  line-height: px2vw(60px);
+  color: #ffbebe;
+}

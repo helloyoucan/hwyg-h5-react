@@ -4,3 +4,48 @@
 @function px2vh($pxNum) {
   @return ($pxNum/750px) * 100vh;
 }
+.sceneCard {
+  background-color: #fff;
+  border-radius: px2vw(10px);
+  overflow: hidden;
+  position: relative;
+}
+.sceneImg {
+  display: block;
+  height: px2vw(364px);
+  width: 100%;
+  background-color: #ddd;
+}
+.sceneName {
+  padding: px2vw(30px) px2vw(30px) px2vw(20px);
+  color: #333;
+  font-size: px2vw(38px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: bold;
+}
+.sceneInfo {
+  display: flex;
+  padding: 0 px2vw(30px) px2vw(30px);
+  font-size: px2vw(26px);
+  color: #999;
+  line-height: 1;
+  flex-wrap: wrap;
+  span {
+    display: inline-block;
+    padding: px2vw(10px) 0;
+    width: 50%;
+  }
+}
+
+.status {
+  position: absolute;
+  left: 0;
+  top: px2vw(20px);
+}
+.count{
+  position: absolute;
+  right: px2vw(20px);
+  top: px2vw(20px);
+}
