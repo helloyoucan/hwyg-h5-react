@@ -4,11 +4,49 @@
 @function px2vh($pxNum) {
   @return ($pxNum/750px) * 100vh;
 }
-.list{
+.listContent{
   overflow: auto;
-  height: calc(100% - #{px2vw(260px)});
-  background-color: #f2f2f2;
+  position: relative;
+  &::before{
+   content: ''; 
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    height: px2vw(80px);  
+    background: linear-gradient(90deg, #f2693d, #cb191d);  
+  }
+  ul{
+    position: relative;
+    z-index: 2;
+  }
+}
+.auctionListContent{
+  background-color: transparent;
+  height: calc(100% - #{px2vw(180px+40px)});
+  padding-top: px2vw(40px);
+  ul{
+    background-color: #fff;
+    border-top-left-radius: px2vw(25px);
+    border-top-right-radius: px2vw(25px);
+    overflow: hidden;/*BFC*/
+  }
   li{
     margin: px2vw(30px);
+  }
+}
+.secneListContent{
+  height: calc(100% - #{px2vw(180px)});
+  background-color: #f2f2f2;
+  &::before{
+    height: px2vw(180px);
+  }
+  ul{
+    background-color: transparent;
+    padding: px2vw(40px) px2vw(30px) 0;
+  }
+  li{
+    margin-bottom: px2vw(30px);
   }
 }

@@ -6,26 +6,20 @@ interface Props {
     type: number
 }
 export default class List extends Component<Props, any> {
-
+$refContent: any = React.createRef()
     render() {
         const { type } = this.props
-        let Ul: JSX.Element
+        const listData = new Array(6).fill(1)
+        this.$refContent.current&&(this.$refContent.current.scrollTop=0)
         switch (type) {
             case 1:
-                Ul = (<ul>{new Array(6).fill(1).map((item, index) => (<li key={index}><SceneCard /></li>))}</ul>)
-                break
             case 2:
-                Ul = (<ul>{new Array(6).fill(1).map((item, index) => (<li key={index}><SceneCard /></li>))}</ul>)
-                break
             case 3:
-                Ul = (<ul>{new Array(6).fill(1).map((item, index) => (<li key={index}><SceneCard /></li>))}</ul>)
+                return (<div ref={this.$refContent} className={[styles.listContent,styles.secneListContent].join(' ')}><ul>{listData.map((item, index) => (<li key={index}><SceneCard /></li>))}</ul></div>)
                 break
             case 1:
             default:
-                Ul = (<ul>{new Array(6).fill(1).map((item, index) => (<li key={index}><AuctionCard /></li>))}</ul>)
+                return (<div ref={this.$refContent} className={[styles.listContent,styles.auctionListContent].join(' ')}><ul>{listData.map((item, index) => (<li key={index}><AuctionCard /></li>))}</ul></div>)
         }
-        return (
-            <div className={styles.list}>{Ul}</div>
-        )
     }
 }

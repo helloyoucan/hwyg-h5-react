@@ -6,6 +6,6 @@
 }
 
 .goodsConatiner{
-  height: calc(100% - #{px2vw(90px)});
+  height: calc(100% - #{px2vw(90px+80px)});
   overflow: auto;
 }
