@@ -3,6 +3,7 @@ import AppMain from '@/components/layout/AppMain/index'
 import Home from '@/containers/Home/index'
 import Goods from '@/containers/Goods/index'
 import Auction from '@/containers/Auction/index'
+import News from '@/containers/News/index'
 import ErrorPage from '@/containers/ErrorPage/index'
 const ErrorRouter = {
     path:'*',
@@ -32,6 +33,11 @@ export default[
                 path:'auction',
                 meta:{},
                 component:Auction
+            },
+            {
+                path:'news',
+                meta:{},
+                component:News
             },
             ErrorRouter
         ]

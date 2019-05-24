@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './styles.module.scss'
 // import Icon from '@base/Icon/index'
 // import { Redirect } from 'react-router-dom'
-import Header from './components/Header/index'
+import Header from '@servise/Header/index'
 import Swipe from './components/Swipe/index'
 import SwipeItem from './components/SwipeItem/index'
 import TradeNews from './components/TradeNews/index'
