@@ -5,8 +5,6 @@
   @return ($pxNum/750px) * 100vh;
 }
 
-.news {
-  height: calc(100% - #{px2vw(90px)});
-  overflow: auto;
-  padding-top: px2vw(90px);
+.list {
+  height: 100%;
 }
