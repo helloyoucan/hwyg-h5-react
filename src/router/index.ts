@@ -4,6 +4,7 @@ import Home from '@/containers/Home/index'
 import Goods from '@/containers/Goods/index'
 import Auction from '@/containers/Auction/index'
 import News from '@/containers/News/index'
+import User from '@/containers/User/index'
 import ErrorPage from '@/containers/ErrorPage/index'
 const ErrorRouter = {
     path:'*',
@@ -38,6 +39,11 @@ export default[
                 path:'news',
                 meta:{},
                 component:News
+            },
+            {
+                path:'mine',
+                meta:{},
+                component:User
             },
             ErrorRouter
         ]

@@ -1,0 +1,74 @@
+@function px2vw($pxNum) {
+  @return ($pxNum/750px) * 100vw;
+}
+@function px2vh($pxNum) {
+  @return ($pxNum/750px) * 100vh;
+}
+
+.header {
+  min-height: px2vw(405px - 80px);
+  background: url(./assets/my_bg_top@3x.b5223dd9.png) no-repeat;
+  background-size: 100%;
+  padding:px2vw(80px) px2vw(30px) 0; 
+}
+.iconBtnGroup {
+  position: absolute;
+  top: px2vw(80px);
+  right: px2vw(30px);
+  display: flex;
+  a + a {
+    margin-left: px2vw(38px);
+  }
+}
+
+.iconBtn {
+  font-size: px2vw(38px);
+  color: #fff;
+}
+.userContent{
+  display: flex;
+}
+.userIconContent{
+  
+  position: relative;
+
+}
+.userIcon{
+  display: block;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background-color: #eee;
+  width: px2vw(124px);
+  height: px2vw(124px);
+}
+.editIconBtn{
+  border: 2px solid #ee3f3f;
+  color: #ee3f3f;
+  background-color: #fff;
+  width: px2vw(30px);
+  height: px2vw(30px);
+  position: absolute;
+  border-radius: 50%;
+  right: 0;
+  bottom: 0;
+}
+.userInfo{
+  margin-left: px2vw(20px);
+}
+.userName{
+  padding: px2vw(20px) 0;
+  font-size: px2vw(36px);
+  color: #fff;
+}
+.authTag{
+  display: inline-block;
+  line-height: px2vw(36px);
+  min-width: px2vw(148px);
+  background-color: #fff;
+  border-radius: px2vw(6px);
+  text-align: center;
+  color: #ee3f3f;
+  &+.authTag{
+    margin-left: px2vw(20px);
+  }
+}

@@ -1,0 +1,36 @@
+@function px2vw($pxNum) {
+  @return ($pxNum/750px) * 100vw;
+}
+@function px2vh($pxNum) {
+  @return ($pxNum/750px) * 100vh;
+}
+.panel {
+  width: px2vw(690px);
+  margin: 0 auto;
+}
+.title {
+  text-align: center;
+  background: #fff;
+  line-height: px2vw(80px);
+  font-size: px2vw(26px);
+  color: #666;
+  border-top-left-radius: px2vw(10px);
+  border-top-right-radius: px2vw(10px);
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background-color: #e1e1e1;
+  }
+}
+.content{
+  display: flex;
+  background: #fff;
+  border-bottom-left-radius: px2vw(10px);
+  border-bottom-right-radius: px2vw(10px);
+  overflow: hidden;
+}
