@@ -6,10 +6,10 @@ export default class Index extends Component {
         return (
             <div className={styles.header}>
                 <div className={styles.iconBtnGroup}>
-                    <a href="javascript:void(0)">
+                    <a href={window.location.pathname}>
                         <Icon className={styles.iconBtn} icon="nav_nav_icon_set" />
                     </a>
-                    <a href="javascript:void(0)">
+                    <a href={window.location.pathname}>
                         <Icon className={styles.iconBtn} icon="nav_icon_message" />
                     </a>
                 </div>

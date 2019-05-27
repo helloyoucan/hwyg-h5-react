@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import styles from './styles.module.scss'
 interface Props {
     className?: string,
@@ -6,7 +6,6 @@ interface Props {
 }
 function Status2JSX(props:Props): JSX.Element {
     const classList = [styles.statusTag]
-    let statusStr =''
     props.className&&classList.push(props.className)
     switch (props.status) {
         case 1:

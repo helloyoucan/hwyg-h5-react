@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import styles from './styles.module.scss'
 import Icon from '@base/Icon/index'
 function NoImgCard(): JSX.Element {

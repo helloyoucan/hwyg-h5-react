@@ -6,6 +6,8 @@
 }
 
 .user{
-  height: 100%;
+  height: calc(100% - #{px2vw(30px)});
+  overflow: auto;
   background-color: #f1f1f1;
+  padding-bottom: px2vw(30px);
 }

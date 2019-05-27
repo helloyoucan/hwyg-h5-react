@@ -5,7 +5,7 @@ interface NoStartProps{
     time: number
 }
 function NoStart(props: NoStartProps): JSX.Element {
-    const { className, time } = props
+    const { className } = props
     return (
         <div className={[styles.timerCount, className ? className : undefined].join(' ')}>
             <span className={styles.timerLabel}>距离开始</span>
@@ -24,7 +24,7 @@ interface BiddingProps {
     bidType: number | string
 }
 function Bidding(props: BiddingProps): JSX.Element {
-    const { className, time, bidType } = props
+    const { className, bidType } = props
     return (
         <div className={[styles.timerCount,  className ? className : undefined].join(' ')}>
             <span className={styles.timerLabel}>{bidType === 1 ? '距离结束' : '距离结束预计'}</span>

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Index from '@/containers/Index/index'
 // import Home from '@/views/home/index'
-import AppMain from '@/components/layout/AppMain/index'
 interface RouterItem {
   path: string,
   exact?: boolean,

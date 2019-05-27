@@ -17,6 +17,7 @@
   border-top-left-radius: px2vw(10px);
   border-top-right-radius: px2vw(10px);
   position: relative;
+  font-weight: normal;
   &::after {
     content: "";
     position: absolute;
@@ -29,6 +30,7 @@
 }
 .content{
   display: flex;
+  flex-wrap: wrap;
   background: #fff;
   border-bottom-left-radius: px2vw(10px);
   border-bottom-right-radius: px2vw(10px);

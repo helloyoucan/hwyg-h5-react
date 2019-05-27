@@ -16,8 +16,7 @@ $refContent: any = React.createRef()
             case 2:
             case 3:
                 return (<div ref={this.$refContent} className={[styles.listContent,styles.secneListContent].join(' ')}><ul>{listData.map((item, index) => (<li key={index}><SceneCard /></li>))}</ul></div>)
-                break
-            case 1:
+            case 0:
             default:
                 return (<div ref={this.$refContent} className={[styles.listContent,styles.auctionListContent].join(' ')}><ul>{listData.map((item, index) => (<li key={index}><AuctionCard /></li>))}</ul></div>)
         }

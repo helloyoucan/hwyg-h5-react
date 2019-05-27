@@ -5,7 +5,7 @@ interface NoStartProps{
     time: number
 }
 function NoStart(props: NoStartProps): JSX.Element {
-    const { className, time } = props
+    const { className } = props
     return (
         <div className={[styles.timerCount, styles.bindding, className ? className : undefined].join(' ')}>
             <span className={styles.timerLabel}>开始时间</span>
@@ -19,7 +19,7 @@ interface BiddingProps {
     bidType: number | string
 }
 function Bidding(props: BiddingProps): JSX.Element {
-    const { className, time, bidType } = props
+    const { className, bidType } = props
     return (
         <div className={[styles.timerCount, styles.bindding, className ? className : undefined].join(' ')}>
             <span className={styles.timerLabel}>{bidType === 1 ? '剩余时间' : '距离结束'}</span>
@@ -38,7 +38,7 @@ interface EndProps{
     time: number
 }
 function End(props: EndProps): JSX.Element {
-    const { className, time } = props
+    const { className } = props
     return (
         <div className={[styles.timerCount, styles.end, className ? className : undefined].join(' ')}>
             <span className={styles.timerLabel}>结束时间</span>

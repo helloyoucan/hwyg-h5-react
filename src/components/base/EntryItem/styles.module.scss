@@ -1,0 +1,38 @@
+@function px2vw($pxNum) {
+  @return ($pxNum/750px) * 100vw;
+}
+@function px2vh($pxNum) {
+  @return ($pxNum/750px) * 100vh;
+}
+.entryItem {
+  display: block;
+  position: relative;
+  line-height: px2vw(83px);
+  font-size: px2vw(26px);
+  color: #333;
+  background-color: #fff;
+  padding: 0 px2vw(86px) 0 px2vw(30px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  &:link {
+    color: #333;
+  }
+  &.line::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-bottom: 1px solid #e1e1e1;
+    height: 1px;
+  }
+}
+
+.entryIcon{
+  position: absolute;
+  right: px2vw(30px);
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+}
