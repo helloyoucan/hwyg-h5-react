@@ -4,6 +4,13 @@
 @function px2vh($pxNum) {
   @return ($pxNum/750px) * 100vh;
 }
+.nullData{
+  height: calc(100% - #{px2vw(180px)});
+  background-color: #f2f2f2;
+  &::before{
+    display: none;
+  }
+}
 .listContent{
   overflow: auto;
   position: relative;

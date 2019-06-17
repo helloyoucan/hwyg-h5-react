@@ -1,11 +1,13 @@
 import axios from 'axios'
 // import Cookies from 'js-cookie'
-// import { Message } from 'element-ui'
 // 创建axios实例
 const service = axios.create({
-  baseURL: process.env.VUE_APP_API_URL ? process.env.VUE_APP_API_URL : '',
   timeout: 15000, // 请求超时时间15s
-  headers: { 'Cache-Control': 'no-cache', 'If-Modified-Since': '0' }
+  headers: { 
+    'Cache-Control': 'no-cache', 
+    'If-Modified-Since': '0',
+    'Content-Type':'application/graphql'
+   }
 })
 
 // request拦截器
@@ -21,10 +23,9 @@ service.interceptors.request.use(config =>
 // respone拦截器
 service.interceptors.response.use(
   (response) => {
-    const res = response.data
-    res.now = new Date(response.headers.date).getTime()
-   if (res.code !== 'success') {
-      return Promise.reject(res)
+    const _schema = response.data._schema
+   if (_schema.code !== 'success') {
+      return Promise.reject(_schema)
     }
     return response.data
   },

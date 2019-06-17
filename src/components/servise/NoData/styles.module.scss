@@ -1,0 +1,25 @@
+@function px2vw($pxNum) {
+  @return ($pxNum/750px) * 100vw;
+}
+@function px2vh($pxNum) {
+  @return ($pxNum/750px) * 100vh;
+}
+._noData {
+  position: relative;
+}
+.layout {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  text-align: center;
+}
+.img {
+  width: px2vw(250px);
+  height: px2vw(340px);
+}
+.message {
+  font-size: px2vw(24px);
+  color: #999;
+  padding-top: px2vw(30px);
+}

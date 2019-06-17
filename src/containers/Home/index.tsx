@@ -9,28 +9,45 @@ import SwipeItem from './components/SwipeItem/index'
 import TradeNews from './components/TradeNews/index'
 import Supply from './components/Supply/index'
 import Purchase from './components/Purchase/index'
+import * as BrannersServise from '@/services/branners'
+interface BrannerItem {
+    brannerName?: string,
+    imgUrl?: string
+}
 export default class Home extends React.Component {
+    state = {
+        branners: []
+    }
+    componentDidMount() {
+        BrannersServise
+            .getBrannerList()
+            .then((res: any) => {
+                this.setState({
+                    branners: res._schema.list
+                })
+            })
+    }
     render() {
+        const { branners } = this.state
+        const SwipeContent = (
+            <Swipe>
+                {
+                    branners
+                        .map((item: BrannerItem, index: number) => (
+                            <SwipeItem key={index} >
+                                <img className={styles.brannerItem} src={item.imgUrl} alt={item.brannerName} />
+                            </SwipeItem>
+                        ))
+                }
+            </Swipe>
+        )
         return (
             <div className={styles.home}>
                 <Header />
-                <Swipe>
-                    <SwipeItem>
-                        <div style={{ backgroundColor: '#eee', height: '100%' }}>1</div>
-                    </SwipeItem>
-                    <SwipeItem>
-                        <div style={{ backgroundColor: '#ddd', height: '100%' }}>2</div>
-                    </SwipeItem>
-                    <SwipeItem>
-                        <div style={{ backgroundColor: '#f0f0f0', height: '100%' }}>3</div>
-                    </SwipeItem>
-                    <SwipeItem>
-                        <div style={{ backgroundColor: '#cdcdcd', height: '100%' }}>4</div>
-                    </SwipeItem>
-                </Swipe>
+                {SwipeContent}
                 <TradeNews />
-                <Supply/>
-                <Purchase/>
+                <Supply />
+                <Purchase />
             </div>
         )
     }

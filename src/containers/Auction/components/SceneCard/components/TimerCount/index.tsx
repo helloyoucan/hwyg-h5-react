@@ -51,9 +51,9 @@ export default class TimerCount extends Component<Props, any> {
     render() {
         const {status,beginTime,endTime,bidType,className}  = this.props
         switch (status) {
-            case 1:
+            case 0:
                 return <NoStart className={className} time={beginTime}/>
-            case 2:
+            case 1:
                 return <Bidding className={className} time={endTime} bidType={bidType}  />
             default:
                return (<div></div>)

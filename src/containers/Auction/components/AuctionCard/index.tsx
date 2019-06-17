@@ -2,26 +2,52 @@ import React, { Component } from 'react'
 import styles from './styles.module.scss'
 import TimerCount from './components/TimerCount/index'
 import Status2JSX from './components/Status2JSX/index'
-export default class AuctionCard extends Component {
+interface Props {
+    auction: {
+        title?: string,
+        status?: number,
+        startPrice?: number,
+        beginTime?: number,
+        endTime?: number,
+        corpore?: {
+            name?: string,
+            quantity?: number,
+            measureUnit?: string
+        },
+        summary?: {
+            currentPrice?: number,
+            bidNumber?: number
+        },
+        coverUrls?: string,
+        dealPrice?: number,
+        dealTime?: number,
+        bidType?:number
+    }|any
+}
+export default class AuctionCard extends Component<Props, any> {
+
     render() {
-        const status = parseInt((Math.random() * 5 + 1) + '', 10)
+        const auction = this.props.auction
         return (
             <div className={styles.auctionCard}>
-                <img className={styles.auctionImg} src="#" alt="标的图片" />
+                <img className={styles.auctionImg} src={auction.coverUrls} alt={auction.title} />
                 <div className={styles.auctionInfo}>
-                    <h3 className={styles.name}><span className={styles.nameText}>深海带鱼</span> <span className={styles.quantity}>10吨</span></h3>
-                    <p className={styles.bindCount}>2次出价</p>
+                    <h3 className={styles.name}>
+                        <span className={styles.nameText}>{auction.title}</span>&nbsp;
+                        <span className={styles.quantity}>{auction.corpore.quantity}{auction.corpore.measureUnit}</span>
+                    </h3>
+                    <p className={styles.bindCount}>{auction.summary.bidNumber}次出价</p>
                     <p className={styles.currentPrice}>
-                        当前价 <span className={styles.price}>20</span>
-                        <span className={styles.unit}>元/吨</span>
+                        当前价 <span className={styles.price}>{auction.summary.currentPrice}</span>
+                        <span className={styles.unit}>元/{auction.corpore.measureUnit}</span>
                     </p>
                     <TimerCount
-                        beginTime={Date.now()}
-                        endTime={Date.now()}
-                        bidType={1}
+                        beginTime={auction.beginTime}
+                        endTime={auction.dealTime?auction.dealTime:auction.endTime}
+                        bidType={auction.bidType}
                         className={styles.timer}
-                        status={status} />
-                    <Status2JSX className={styles.tag} status={status} />
+                        status={auction.status} />
+                    <Status2JSX className={styles.tag} status={auction.status} />
                 </div>
             </div>
         )

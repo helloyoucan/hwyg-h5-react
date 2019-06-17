@@ -167,8 +167,11 @@ export default class Swipe extends Component {
     componentDidMount() {
         this.initChildren()
     }
-    componentWillReceiveProps() {
-        this.initChildren()
+    componentDidUpdate(prevProps:any) {
+        if (this.props.children !== prevProps.children) {
+            this.initChildren()
+          }
+        
     }
     componentWillUnmount(){
         this.state.timeId && clearInterval(this.state.timeId)
