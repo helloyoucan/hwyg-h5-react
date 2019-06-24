@@ -7,7 +7,8 @@
 .newsCard {
   padding: px2vw(36px) px2vw(30px) px2vw(30px + 54px);
   position: relative;
-  min-height: px2vw(210px - 54px);
+  // min-height: px2vw(210px - 54px);
+  // min-height: px2vw(210px - 54px);
   &::after {
     content: "";
     position: absolute;
@@ -23,8 +24,9 @@
   color: #333;
   font-weight: bold;
   line-height: px2vw(40px);
-  max-height: px2vw(80px);
+  height: px2vw(80px);
   margin-top: px2vw(-5px);
+  overflow: hidden;
 }
 .pushTime {
   position: absolute;

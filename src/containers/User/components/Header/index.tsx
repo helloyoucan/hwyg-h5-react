@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import styles from './styles.module.scss'
 import Icon from '@base/Icon/index'
+import temp_icon from './assets/temp_icon.jpeg'
 export default class Index extends Component {
     render() {
         return (
@@ -15,18 +16,21 @@ export default class Index extends Component {
                 </div>
                 <div className={styles.userContent}>
                     <div className={styles.userIconContent}>
-                        <img src="#" className={styles.userIcon} alt="用户头像" />
+                        <img src={temp_icon} className={styles.userIcon} alt="用户头像" />
                         <Icon icon="icon_edit" className={styles.editIconBtn} />
                     </div>
                     <div className={styles.userInfo}>
                         <p className={styles.userName}>用户名</p>
                         <p className={styles.userAuth}>
-                            <span className={styles.authTag}>
-                                <Icon icon="icon_vip" />个人认证
-                            </span>
-                            <span className={styles.authTag}>
-                                <Icon icon="icon_vip" />企业认证
-                            </span>
+                            {
+                                true
+                                    ? (<span className={styles.authTag}>
+                                        <Icon icon="icon_vip" />个人认证
+                                </span>)
+                                    : (<span className={styles.authTag}>
+                                        <Icon icon="icon_vip" />企业认证
+                                </span>)
+                            }
                         </p>
                     </div>
                 </div>
