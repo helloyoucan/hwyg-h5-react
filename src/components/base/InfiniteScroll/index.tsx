@@ -4,8 +4,9 @@ import Icon from '@base/Icon/index'
 interface Props {
     height?: string,
     className?: string,
-    onUpdate?: (done: Function) => {}
-    onLoad?: (done: Function) => {}
+    onUpdate?: (done: Function) => void,
+    onLoad?: (done: Function) => void,
+    canLoad?: Boolean
 }
 interface TargetTouche {
     targetTouche: {
@@ -63,7 +64,7 @@ export default class InfiniteScroll extends Component<Props, any> {
             })
         }
         const maxScroll = this.$refSrcollContent.current.scrollHeight - this.$refSrcollContent.current.clientHeight
-        if (this.state.canMoveLoad && scrollTop === maxScroll && startPageY - movePageY > 0) {//底部往上拉，加载更多
+        if (this.props.canLoad && this.state.canMoveLoad && scrollTop === maxScroll && startPageY - movePageY > 0) {//底部往上拉，加载更多
             const moveDistance = Math.abs(startPageY - movePageY)
             const newSrcollContentStyle = { transform: `translate3d(0,-${moveDistance}px,0)`, transtiton: 'none' }
             const newBottomStyle = { height: `${moveDistance}px`, transtiton: 'none' }
@@ -105,7 +106,7 @@ export default class InfiniteScroll extends Component<Props, any> {
         //下拉，加载更多
         const maxScroll = this.$refSrcollContent.current.scrollHeight - this.$refSrcollContent.current.clientHeight
         //这里scrollTop+5是因为避免vw->px取整时产生误差
-        if (this.state.canMoveLoad && (scrollTop+5) >= maxScroll && startPageY - endPageY > 0) {//底部往上拉，加载更多
+        if (this.props.canLoad && this.state.canMoveLoad && (scrollTop + 5) >= maxScroll && startPageY - endPageY > 0) {//底部往上拉，加载更多
             const moveDistance = Math.abs(startPageY - endPageY)
             const maxHeight = this.$refBottom.current.clientHeight
             const newSrcollContentStyle = { transform: `translate3d(0,-${moveDistance >= maxHeight ? maxHeight : 0}px,0)`, transition: 'transform .5s' }

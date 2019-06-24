@@ -33,7 +33,7 @@
   padding: px2vw(10px) 0;
   font-weight: normal;
   background-color: #fff;
-  span {
+  .moduleTitle {
     display: inline-block;
     height: px2vw(60px);
     line-height: px2vw(60px);
@@ -44,7 +44,7 @@
     border-bottom-right-radius: px2vw(30px);
     padding: 0 px2vw(40px) 0 px2vw(30px);
   }
-  a {
+  .readMore {
     float: right;
     line-height: px2vw(60px);
     padding-right: px2vw(30px);

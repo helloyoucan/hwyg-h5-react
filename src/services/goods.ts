@@ -1,15 +1,20 @@
 import request from '@/utils/request.js'
-enum Type{
-    supply=1,
-    purchase=2
+enum Type {
+    supply = 2,
+    purchase = 1
 }
-export function getGoodsList(type:Type){
+interface Params {
+    type: Type,
+    size?: number,
+    page?: number,
+}
+export function getGoodsList({ size = 10, page = 1, type = 1 }: Params) {
     return request({
-        url:'/goods/list',
-        method:'POST',
-        data:`
+        url: '/goods/list',
+        method: 'POST',
+        data: `
             {
-                _schema(size:10,page:1,status:1,type:${type}){
+                _schema(size:${size},page:${page},status:1,type:${type}){
                 list{
                     defaultImage
                     productName
@@ -18,6 +23,10 @@ export function getGoodsList(type:Type){
                     unit
                     unitPrice
                     totalAmount
+                    quoteType
+                }
+                pager{
+                    totalPages
                 }
                 code
                 message

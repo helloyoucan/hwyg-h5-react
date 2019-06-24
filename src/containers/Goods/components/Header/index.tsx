@@ -1,42 +1,44 @@
 import React, { Component } from 'react'
 import styles from './styles.module.scss'
 import Icon from '@base/Icon/index'
-interface State{
-    tabIndexActive:number
+enum Type {
+    supply = 1,
+    purchase = 2
 }
-export default class Header extends Component {
-    state:State = {
-        tabIndexActive: 0
-    }
+interface Props {
+    type: Type,
+    changeType: Function
+}
+interface State {
+    tabIndexActive: number
+}
+export default class Header extends Component<Props, any> {
     constructor(props: any) {
         super(props)
         this.handleClickTabItem = this.handleClickTabItem.bind(this)
     }
-    handleClickTabItem(e:any) {
+    handleClickTabItem(e: any) {
         e.persist()
         const target = e.target
-        const newTabIndexActive = parseInt(target.getAttribute('data-index'),10)
-        console.log(newTabIndexActive)
-        this.setState({
-            tabIndexActive: newTabIndexActive
-        })
+        const newTabIndexActive = parseInt(target.getAttribute('data-index'), 10)
+        this.props.changeType(newTabIndexActive)
     }
     render() {
         const tabListData = [
-            { title: '供应信息' },
-            { title: '求购信息' }
+            { title: '供应信息', type: 2 },
+            { title: '求购信息', type: 1 }
         ]
-        const tabIndexActive = this.state.tabIndexActive
+        const tabIndexActive = this.props.type
         return (
             <div className={styles.header}>
                 <div className={styles.tabs}
                     onClick={(e) => { this.handleClickTabItem(e) }}>
                     {
-                        tabListData.map((item, index) => (
+                        tabListData.map((item) => (
                             <span
-                                className={[styles.tabItem, tabIndexActive === index ? styles.active : undefined].join(' ')}
+                                className={[styles.tabItem, tabIndexActive === item.type ? styles.active : undefined].join(' ')}
                                 key={item.title}
-                                data-index={index}>
+                                data-index={ item.type}>
                                 {item.title}
                             </span>))
                     }
