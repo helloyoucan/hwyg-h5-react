@@ -11,13 +11,16 @@
   background-position: px2vw(30px) px2vw(21px);
   padding: px2vw(21px) px2vw(10px) px2vw(21px) px2vw(158px);
   height: px2vw(78px);
-  line-height: px2vw(78px);
   overflow: hidden;
   background-color: #fff;
 }
 .tradeNewsList{
   height: 100%;
-  font-size: px2vw(26px);
+  font-size: 0;
+  li{
+    font-size: px2vw(26px);
+    line-height: px2vw(78px);
+  }
   span{
     font-size: px2vw(30px);
     color: #cb191d;
