@@ -1,2 +1,7 @@
 @import './reset.scss';
-@import './utils.scss'
+@import './utils.scss';
+html,
+body,
+#root{
+    height: 100%;
+}
