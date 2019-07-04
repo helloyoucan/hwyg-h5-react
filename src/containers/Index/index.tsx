@@ -8,7 +8,7 @@ export default class Index extends React.Component{
         return (
             <div className={styles.index}>
             <span className={styles.loading}></span>
-                <Redirect to="/main" />
+                <Redirect to="/main/home" />
             </div>
         )
     }
