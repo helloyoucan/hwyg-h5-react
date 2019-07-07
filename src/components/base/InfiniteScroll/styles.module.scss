@@ -4,13 +4,20 @@
 @function px2vh($pxNum) {
   @return ($pxNum/750px) * 100vh;
 }
-
+@keyframes rotateLoad {
+  from {
+    transform: rotateZ(0);
+  }
+  to {
+    transform: rotateZ(360deg);
+  }
+}
 .infiniteScroll {
   overflow: hidden;
   position: relative;
   -webkit-overflow-scrolling: touch;
   transform: translate3d(0, 0, 0);
-  -webkit-transform: translate3d(0, 0, 0);  
+  -webkit-transform: translate3d(0, 0, 0);
 }
 .srcollContent {
   position: relative;
@@ -30,6 +37,27 @@
   z-index: 2;
   background-color: #fff;
   overflow: hidden;
+  display: flex;
+  flex-direction: column-reverse;
+}
+.up {
+  .downIcon {
+    transform: rotateX(180deg);
+  }
+}
+.topContent{
+  p{
+    line-height: px2vw(40px);
+  }
+}
+.downIcon {
+  font-size: px2vw(40px);
+  transition: transform 0.5s;
+  transform: rotateX(0);
+}
+.loadIcon {
+  font-size: px2vw(40px);
+  animation: rotateLoad 1s infinite;
 }
 .bottom {
   // height: px2vw(80px);

@@ -24,6 +24,7 @@ interface State {
 export default class InfiniteScroll extends Component<Props, any> {
     $refSrcollContent: any = React.createRef()
     $refTop: any = React.createRef()
+    $el: any = React.createRef()
     state = {
         isPull: false,
         isLoading: false,
@@ -31,9 +32,10 @@ export default class InfiniteScroll extends Component<Props, any> {
         startPos: 0,
         endPos: 0,
         distance: 0,//滑动距离
-        modulus: 2,//滑动系数
+        modulus: 1,//滑动系数
         pullStatus: '',//状态
-        srcollContentStyle: {}
+        srcollContentStyle: {},
+        topStyle: {}
     }
     constructor(props: any) {
         super(props)
@@ -42,24 +44,31 @@ export default class InfiniteScroll extends Component<Props, any> {
         this.handleTouchEnd = this.handleTouchEnd.bind(this)
 
     }
-    handleTouchStart(e: React.TouchEvent) {
-        e.persist()
+    bindEvent() {
+        const $el: HTMLElement = this.$el.current
+        $el.addEventListener('touchstart', this.handleTouchStart)
+        $el.addEventListener('touchmove', this.handleTouchMove)
+        $el.addEventListener('touchend', this.handleTouchEnd)
+    }
+    handleTouchStart(e: TouchEvent) {
         const { isPull, isLoading } = this.state
-        const { scrollTop, offsetTop } = this.$refSrcollContent.current
-        if (!isPull && !isLoading && scrollTop === offsetTop) {
+        const { scrollTop, offsetTop, scrollHeight, clientHeight } = this.$refSrcollContent.current
+        console.log(scrollTop, clientHeight, scrollHeight)
+        if (!isPull && !isLoading && (scrollTop === offsetTop)) {
             this.setState({
                 startPos: e.touches[0].pageY,
                 isPull: true
             })
         }
     }
-    handleTouchMove(e: React.TouchEvent) {
-        e.persist()
+
+    handleTouchMove(e: TouchEvent) {
         const _endPos = e.touches[0].pageY;
         const { isPull, isLoading, startPos, modulus } = this.state
         if (isPull && !isLoading && startPos < _endPos) {
+            e.preventDefault()
             const _distance = (_endPos - startPos) * modulus
-            const $topHeight = this.$refTop.current.offsetHeight
+            const $topHeight = this.$refTop.current.scrollHeight
             let _pullStatus = ''
             if (_distance >= $topHeight) {
                 _pullStatus = 'up'
@@ -68,28 +77,49 @@ export default class InfiniteScroll extends Component<Props, any> {
             }
             this.setState({
                 distance: _distance,
-                pullStatus: _pullStatus
+                pullStatus: _pullStatus,
+                topStyle: { height: _distance }
             })
-            console.log(_distance)
             this.moveTransition(_distance, 0)
         }
     }
-    handleTouchEnd(e: React.TouchEvent) {
-        e.persist()
-        const { isBack, isLoading, distance } = this.state
-        // const $topHeight = this.$refTop.current.offsetHeight
-        const $topHeight = 1000
-        if (isLoading || distance <= 0 || isBack) { return false; }
+    handleTouchEnd(e: TouchEvent) {
+        const { isPull, isLoading, distance } = this.state
+        const { scrollTop, offsetTop } = this.$refSrcollContent.current
+        if (isPull && !isLoading && distance > 0 && scrollTop === offsetTop) {
+            const $topHeight = this.$refTop.current.scrollHeight
+            //拉动距离大于临界值
+            if (isPull && distance > 0 && distance >= $topHeight) {
+                //执行刷新动作
+                this.setState({ pullStatus: 'laoding' }, () => {
+                    const height = this.$refTop.current.querySelector('.' + styles.topContent).scrollHeight
+                    this.moveTransition(height, 500)
+                    this.setState({
+                        isLoading: true,
+                        topStyle: { height: height }
+                    })
+                })
+                setTimeout(() => {
+                    this.moveTransition(0, 500)
+                    setTimeout(() => {
+                        this.setState({
+                            pullStatus: 'down',
+                            isPull: false,
+                            isLoading: false
+                        })
+                    }, 500)
+                }, 1500)
+            } else {
+                //返回初始状态
+                // this.setState({isBack:true})
+                this.moveTransition(0, 500)
+                this.setState({
+                    isPull: false,
+                    pullStatus: 'down'
+                })
+            }
 
-        //拉动距离大于临界值
-        if (distance > 0 && distance >= $topHeight) {
-            //执行刷新动作
-        } else {
-            //返回初始状态
-            // this.setState({isBack:true})
-            this.moveTransition(0, 500)
         }
-
     }
     moveTransition(distance: number, time: number) {
         const style = { transform: `translate3d(0,${distance}px,0)`, transition: `transform ${time / 1000}s` }
@@ -98,33 +128,46 @@ export default class InfiniteScroll extends Component<Props, any> {
         })
 
     }
-    pullTransition() {
 
+    componentDidMount() {
+        this.bindEvent()
+    }
+    getTopContent(type: string) {
+        switch (type) {
+            case 'down':
+                return (<div className={styles.topContent}>
+                    <p>下拉刷新</p>
+                    <p><Icon icon="xiajiantou" className={styles.downIcon} /></p>
+                </div>)
+            case 'up':
+                return (<div className={[styles.topContent, styles.up].join(' ')}>
+                    <p>释放刷新</p>
+                    <p><Icon icon="xiajiantou" className={styles.downIcon} /></p>
+                </div>)
+            case 'laoding':
+                return (
+                    <div className={styles.topContent}>
+                        <p><Icon icon="jiazai" className={styles.loadIcon} /></p>
+                    </div>
+                )
+
+        }
     }
     render() {
         const { children, height, className } = this.props
         // const { srcollContentStyle, topStyle, bottomStyle, isUpdate } = this.state
-        const { srcollContentStyle } = this.state
+        const { srcollContentStyle, topStyle, pullStatus } = this.state
         return (
             <div
                 className={[styles.infiniteScroll, className ? className : ''].join(' ')}
                 style={{ height: height ? height : undefined }}
-                onTouchStart={(e) => { this.handleTouchStart(e) }}
-                onTouchMove={(e) => { this.handleTouchMove(e) }}
-                onTouchEnd={(e) => { this.handleTouchEnd(e) }}
+                ref={this.$el}
             >
                 <div
                     className={styles.top}
                     ref={this.$refTop}
-                // style={topStyle} 
-                >
-                    {
-                        // isUpdate
-                        false
-                            ? (<Icon icon="jiazai" />)
-                            : (<div><p>刷新</p> <Icon icon="xiajiantou" /></div>)
-                    }
-                </div>
+                    style={topStyle}
+                >{this.getTopContent(pullStatus)}</div>
                 <div
                     className={styles.srcollContent}
                     ref={this.$refSrcollContent}
