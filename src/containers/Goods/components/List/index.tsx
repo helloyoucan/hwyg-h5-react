@@ -77,10 +77,11 @@ export default class List extends Component<Props, any> {
     }
     render() {
         const { list, page, totalPages } = this.state
+        const canLoad = page < totalPages
         return (
             <InfiniteScroll
                 className={styles.goodsConatiner}
-                canLoad={page < totalPages}
+                canLoad={canLoad}
                 onUpdate={this.handleOnUpdate}
                 onLoad={this.handleOnLoad}>
                 <ul className={styles.list}>

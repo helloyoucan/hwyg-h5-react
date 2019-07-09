@@ -66,7 +66,8 @@ export default class InfiniteScroll extends Component<Props, any> {
     }
 
     handleTouchMove(e: TouchEvent) {
-        const _endPos = e.touches[0].pageY;
+        const _endPos = e.touches[0].pageY
+        const { canLoad } = this.props
         const { isPull, isLoading, startPos, modulus } = this.state
         const { scrollTop, offsetTop, scrollHeight, clientHeight } = this.$refSrcollContent.current
         if (!isPull || isLoading) { return false }
@@ -89,7 +90,7 @@ export default class InfiniteScroll extends Component<Props, any> {
             this.moveTransition(_distance, 0)
         }
         // 底部往上拉
-        if ((scrollTop + clientHeight >= scrollHeight - 5) && startPos > _endPos) {
+        if (canLoad && (scrollTop + clientHeight >= scrollHeight - 5) && startPos > _endPos) {
             e.preventDefault()
             const _distance = (_endPos - startPos) * modulus
             const $bottomHeight = this.$refBottom.current.scrollHeight
@@ -115,7 +116,10 @@ export default class InfiniteScroll extends Component<Props, any> {
             const $topHeight = this.$refTop.current.scrollHeight
             const $bottomHeight = this.$refBottom.current.scrollHeight
             //顶部上拉
-            if (scrollTop === offsetTop && distance >= $topHeight && typeof onUpdate === 'function') {
+            if (scrollTop === offsetTop &&
+                distance > 0 &&
+                distance >= $topHeight &&
+                typeof onUpdate === 'function') {
                 //执行刷新动作
                 this.setState({ pullStatus: 'laoding' }, () => {
                     const height = this.$refTop.current.querySelector('.' + styles.topContent).scrollHeight
@@ -131,7 +135,9 @@ export default class InfiniteScroll extends Component<Props, any> {
                         this.setState({
                             pullStatus: 'down',
                             isPull: false,
-                            isLoading: false
+                            isLoading: false,
+                            distance: 0,
+                            topStyle: { height: 0 }
                         })
                     }, 500)
                 })
@@ -147,7 +153,11 @@ export default class InfiniteScroll extends Component<Props, any> {
                 //     }, 500)
                 // }, 1500)
                 //底部往上拉
-            } else if ((scrollTop + clientHeight >= scrollHeight - 5) && Math.abs(distance) >= $bottomHeight && typeof onLoad === 'function') {
+            } else if (onLoad &&
+                (scrollTop + clientHeight >= scrollHeight - 5) &&
+                Math.abs(distance) > 0 &&
+                Math.abs(distance) >= $bottomHeight &&
+                typeof onLoad === 'function') {
                 //执行加载动作
                 this.setState({ pullStatus: 'laoding' }, () => {
                     const height = this.$refBottom.current.querySelector('.' + styles.bottomContent).scrollHeight
@@ -163,7 +173,9 @@ export default class InfiniteScroll extends Component<Props, any> {
                         this.setState({
                             pullStatus: 'down',
                             isPull: false,
-                            isLoading: false
+                            isLoading: false,
+                            distance: 0,
+                            bottomStyle: { height: 0 }
                         })
                     }, 500)
                 })
