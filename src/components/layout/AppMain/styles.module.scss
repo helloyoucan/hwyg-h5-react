@@ -16,4 +16,5 @@
 }
 .containber {
   height: calc(100vh - #{px2vw(100px)});
+  height: calc(var(--vh, 1vh) * 100 - #{px2vw(100px)});
 }
