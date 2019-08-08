@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import styles from './styles.module.scss'
 import Icon from '@base/Icon/index'
+import styles from './styles.module.scss'
 enum Type {
     supply = 1,
     purchase = 2
