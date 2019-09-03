@@ -6,7 +6,7 @@
 [BFF](https://github.com/helloyoucan/hwyg-h5-BFF)（Backend For Frontend ）层。
 
 
-[访问地址](https://helloyoucan.com:8080)
+[访问地址](http://helloyoucan.com:8080)
 
 ###### 演示效果
 <img src="https://github.com/helloyoucan/hwyg-h5-react/blob/master/screenshots/roocard.gif?raw=true"/>
